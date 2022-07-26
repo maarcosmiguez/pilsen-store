@@ -1,0 +1,27 @@
+ion-card img {
+  max-width: 100%;
+  object-fit: contain;
+}
+
+figure {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.hide {
+  display:none;
+}
+
+#related {
+  padding: 10px
+}
+
+.ampliacion {
+  width: 90%;
+  padding-top: 10vh;
+  margin-top: 8vh
+}
+
+/* #background-content{
+  background: lightblue url("../assets/img/bg.jpg");
+} */

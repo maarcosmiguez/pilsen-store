@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cerveza negra - Tienda oficial</title>
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+
+    <!-- APP -->
+    <ion-app>
+      <ion-nav root="page-inicio" id="nav-principal"></ion-nav>
+
+      <ion-menu side="end" content-id="nav-principal" menu-id="menu-principal">
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Menu</ion-title>
+          </ion-toolbar>
+        </ion-header>
+
+        <!-- CONTENT -->
+        <ion-content>
+          <ion-list>
+            <ion-item button onclick="navegarMenu('page-inicio')">
+              <ion-label>Inicio</ion-label>
+            </ion-item>
+            <ion-item button onclick="navegar('page-cerveza')">
+              <ion-label>Cervezas</ion-label>
+            </ion-item>
+            <ion-item button onclick="navegar('page-fernet')">
+              <ion-label>Fernet</ion-label>
+            </ion-item>
+            <ion-item button onclick="navegar('page-compras')">
+              <ion-label>Carrito</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+        
+
+      </ion-menu>
+
+      <!-- <ion-footer>
+        <ion-toolbar>
+          <ion-title>Cervezas</ion-title>
+        </ion-toolbar>
+      </ion-footer> -->
+
+      <!-- MODAL -->
+      <ion-modal trigger="open-modal" id="modalAmpliacion">
+      </ion-modal>
+      <!-- CIERRA MODAL -->
+      <!-- Footer without a border -->
+
+    </ion-app>
+
+    <template id="page-inicio.html">
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+          </ion-buttons>
+
+          <ion-title>Recomendados</ion-title>
+
+          <ion-chip color="success" slot="end">
+            <ion-label onclick="navegar('page-compras')">
+              <ion-icon name="cart"></ion-icon>
+            </ion-label>          
+          </ion-chip>
+
+          <ion-buttons slot="end">
+            <ion-menu-button menu="menu-principal"></ion-menu-button>
+          </ion-buttons>
+
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <figure><img src="assets/img/promo-back.jpg" alt="promocion" /></figure>
+        <ion-item>
+          <ion-searchbar id="search-bar-main" animated></ion-searchbar>
+        </ion-item>
+
+        <section class="related hide ion-padding">
+          <ion-p class="ion-padding">No hemos encontrado lo que buscas :(</ion-p>
+          <p id="related">
+          </p>
+        </section>
+
+        <section id="listado-filtrado">
+        </section>
+
+
+
+        <section id="listado-recomendaciones" class="padding-bottom">
+          <h2 class="ion-padding-horizontal">Recomendados</h2>
+        </section>
+      </ion-content>
+    </template>
+
+    <template id="page-cerveza.html">
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+          </ion-buttons>
+
+          <ion-title>Cervezas</ion-title>
+
+          <ion-chip color="success" slot="end">
+            <ion-label onclick="navegar('page-compras')">
+              <ion-icon name="cart"></ion-icon>
+            </ion-label>          
+          </ion-chip>
+
+          <ion-buttons slot="end">
+            <ion-menu-button menu="menu-principal"></ion-menu-button>
+          </ion-buttons>
+
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <figure><img src="assets/img/promo-pilsen.jpg" alt="promocion" /></figure>
+
+        <div class="ion-padding">
+          <ion-p>Buscar</ion-p>
+          <ion-chip color="secondary">
+            <ion-label onclick="navegar('page-fernet')">Fernet</ion-label>
+          </ion-chip>
+  
+          <ion-chip color="primary">
+            <ion-icon name="card-outline"></ion-icon>
+            <ion-label onclick="navegarMenu('page-inicio')">Todos los productos</ion-label>
+          </ion-chip>
+        </div>
+
+        <h2 class="ion-padding-horizontal">Cerveza</h2>
+
+        <div id="listado-recomendaciones-cerveza">
+        </div>
+      </ion-content>
+    </template>
+
+    <template id="page-compras.html">
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+          </ion-buttons>
+          <ion-title>Carrito</ion-title>
+          <ion-buttons slot="end">
+            <ion-menu-button menu="menu-principal"></ion-menu-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <figure><img src="assets/img/bg.jpg" alt="promocion" /></figure>
+        <h2 class="ion-padding-horizontal">Carrito</h2>
+
+        <ion-list id="carrito">
+          <p-ion class="ion-padding">No hay items en tu carrito.</p>
+      </ion-list>
+    <div class="ion-padding">
+        <ion-chip color="secondary">
+          <ion-icon name="pricetag-outline"></ion-icon>
+          <ion-label onclick="navegarMenu('page-inicio')">Seguir comprando</ion-label>
+        </ion-chip>
+
+        <ion-chip color="success" button onclick="payAlert()" expand="full" id="submit">
+          <ion-icon name="card-outline"></ion-icon>
+          <ion-label expand="block">Pagar</ion-label>
+        </ion-chip>
+      </div>
+      </ion-content>
+    </template>
+
+    <template id="page-fernet.html">
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+          </ion-buttons>
+
+          <ion-title>Fernet</ion-title>
+
+          <ion-chip color="success" slot="end">
+            <ion-label onclick="navegar('page-compras')">
+              <ion-icon name="cart"></ion-icon>
+            </ion-label>          
+          </ion-chip>
+
+          <ion-buttons slot="end">
+            <ion-menu-button menu="menu-principal"></ion-menu-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <figure><img src="assets/img/promo-artesanal.jpg" alt="promocion" /></figure>
+
+        <div class="ion-padding">
+          <ion-p>Buscar</ion-p>
+          <ion-chip color="secondary">
+            <ion-label onclick="navegar('page-cerveza')">Cerveza</ion-label>
+          </ion-chip>
+  
+          <ion-chip color="primary">
+            <ion-icon name="card-outline"></ion-icon>
+            <ion-label onclick="navegarMenu('page-inicio')">Todos los productos</ion-label>
+          </ion-chip>
+        </div>
+
+        <h2 class="ion-padding-horizontal">Fernet</h2>
+
+        <div id="listado-recomendaciones-fernet">
+        </div>
+      </ion-content>
+    </template>
+
+    <template id="ampliacion.html">
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo aliquam dolorum recusandae blanditiis ex, ut vitae perferendis doloribus beatae, laborum deserunt sunt non quasi, minima quos sint ipsum corrupti officiis?</p>
+      <button>Accion</button>
+    </template>
+
+    <script>
+var modal = document.querySelector('ion-modal');
+
+function cancel() {
+  modal.dismiss(null, 'cancel');
+}
+
+function confirm() {
+  const input = document.querySelector('ion-input');
+  modal.dismiss(input.value, 'confirm');
+}
+
+modal.addEventListener('willDismiss', (ev) => {
+  if (ev.detail.role === 'confirm') {
+    const message = document.querySelector('#message');
+    message.textContent = `Hello ${ev.detail.data}!`;
+  }
+});
+    </script>
+    <script src="capacitor.js"></script>
+    <script src="js/globals.js"></script>
+    <script src="js/componentes.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
